@@ -117,7 +117,12 @@ if __name__ == "__main__":
     scraped_data = parse_listing(keyword, place)
 
     if scraped_data:
-        os.remove("Tech-Ottawa,ON-yellowpages-scraped-data.csv")
+        try:
+            # Attempt to remove the file
+            os.remove("Tech-Ottawa,ON-yellowpages-scraped-data.csv")
+            print("File Tech-Ottawa,ON-yellowpages-scraped-data.csv successfully removed.")
+        except FileNotFoundError:
+            print("Error: File Tech-Ottawa,ON-yellowpages-scraped-data.csv not found.")
         print("Writing scraped data to %s-%s-yellowpages-scraped-data.csv" % (keyword, place))
         with open('%s-%s-yellowpages-scraped-data.csv' % (keyword, place), 'wb') as csvfile:
             fieldnames = ['business_name', 'telephone', 'business_page', 'category', 'website',
